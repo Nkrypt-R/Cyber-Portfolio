@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Cyberpunk Dark Theme */
+    --background: 240 10% 4%;
+    --foreground: 180 100% 90%;
+
+    --card: 240 8% 8%;
+    --card-foreground: 180 100% 90%;
+
+    --popover: 240 10% 6%;
+    --popover-foreground: 180 100% 90%;
+
+    --primary: 180 100% 50%;
+    --primary-foreground: 240 10% 4%;
+
+    --secondary: 280 100% 50%;
+    --secondary-foreground: 240 10% 4%;
+
+    --muted: 240 8% 15%;
+    --muted-foreground: 180 50% 60%;
+
+    --accent: 330 100% 50%;
+    --accent-foreground: 240 10% 4%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 180 100% 50% / 0.2;
+    --input: 180 100% 50% / 0.1;
+    --ring: 180 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Neon Glow Colors */
+    --cyan: 180 100% 50%;
+    --purple: 280 100% 50%;
+    --pink: 330 100% 50%;
+    --green: 120 100% 50%;
+    
+    /* Glassmorphism */
+    --glass-bg: 240 10% 8% / 0.3;
+    --glass-border: 180 100% 50% / 0.2;
+    --glass-shadow: 180 100% 50% / 0.1;
+  }
+}
+
+@layer utilities {
+  /* Glassmorphism Effect */
+  .glass {
+    background: rgba(10, 10, 20, 0.4);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.1);
+  }
+
+  .glass-intense {
+    background: rgba(10, 10, 20, 0.6);
+    backdrop-filter: blur(30px) saturate(200%);
+    border: 1px solid rgba(0, 240, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.15);
+  }
+
+  /* Neon Glow Effects */
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.5),
+                0 0 40px rgba(0, 240, 255, 0.3),
+                inset 0 0 20px rgba(0, 240, 255, 0.1);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(180, 0, 255, 0.5),
+                0 0 40px rgba(180, 0, 255, 0.3),
+                inset 0 0 20px rgba(180, 0, 255, 0.1);
+  }
+
+  .glow-pink {
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.5),
+                0 0 40px rgba(255, 0, 110, 0.3),
+                inset 0 0 20px rgba(255, 0, 110, 0.1);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8),
+                 0 0 20px rgba(0, 240, 255, 0.5),
+                 0 0 30px rgba(0, 240, 255, 0.3);
+  }
+
+  .text-glow-purple {
+    text-shadow: 0 0 10px rgba(180, 0, 255, 0.8),
+                 0 0 20px rgba(180, 0, 255, 0.5),
+                 0 0 30px rgba(180, 0, 255, 0.3);
+  }
+
+  .text-glow-pink {
+    text-shadow: 0 0 10px rgba(255, 0, 110, 0.8),
+                 0 0 20px rgba(255, 0, 110, 0.5),
+                 0 0 30px rgba(255, 0, 110, 0.3);
+  }
+
+  /* Scanline Effect */
+  .scanlines {
+    position: relative;
+  }
+
+  .scanlines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 240, 255, 0.03) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    animation: scanline 8s linear infinite;
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+  }
+
+  /* Glitch Effect */
+  .glitch {
+    position: relative;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+  }
+
+  .glitch::before {
+    animation: glitch-1 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    color: rgba(0, 240, 255, 0.8);
+    z-index: -1;
+  }
+
+  .glitch::after {
+    animation: glitch-2 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    color: rgba(255, 0, 110, 0.8);
+    z-index: -2;
+  }
+
+  @keyframes glitch-1 {
+    0%, 100% { transform: translate(0); }
+    33% { transform: translate(-2px, 2px); }
+    66% { transform: translate(2px, -2px); }
+  }
+
+  @keyframes glitch-2 {
+    0%, 100% { transform: translate(0); }
+    33% { transform: translate(2px, -2px); }
+    66% { transform: translate(-2px, 2px); }
+  }
+
+  /* Terminal Cursor */
+  .terminal-cursor::after {
+    content: '▊';
+    animation: blink 1s step-end infinite;
+    color: rgba(0, 240, 255, 0.8);
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Cyber Border */
+  .cyber-border {
+    position: relative;
+    border: 1px solid rgba(0, 240, 255, 0.3);
+  }
+
+  .cyber-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(45deg, 
+      rgba(0, 240, 255, 0.5) 0%,
+      rgba(180, 0, 255, 0.5) 50%,
+      rgba(255, 0, 110, 0.5) 100%
+    );
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  .cyber-border:hover::before {
+    opacity: 1;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(10, 10, 20, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 240, 255, 0.3);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 240, 255, 0.5);
+  }
+
+  /* Cyber Cursor */
+  body {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="6" fill="none" stroke="%2300f0ff" stroke-width="2"/><circle cx="10" cy="10" r="2" fill="%2300f0ff"/></svg>') 10 10, auto;
+  }
+
+  a, button, [role="button"] {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="%23ff006e" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="%23ff006e"/></svg>') 12 12, pointer;
+  }
+}
